@@ -1,35 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Apps Script Integration</title>
+    <meta http-equiv="refresh" content="0; url=https://script.google.com/macros/s/AKfycbxmvi2uzx832qwRZyKpLW_4nQ60-46VFVFmfnJoJmutzjE3pCvJJ4bE-1ou21nYZqqEDA/exec" />
+    <title>Redirecting...</title>
 </head>
 <body>
-    <h1>Google Apps Script API Integration</h1>
-
-    <!-- Button to call the API -->
-    <button id="fetchData">Get Data from Google Apps Script</button>
-
-    <!-- Display the result -->
-    <div id="result"></div>
-
-    <script>
-        // URL of your Google Apps Script
-        const apiUrl = "https://script.google.com/macros/s/AKfycbxmvi2uzx832qwRZyKpLW_4nQ60-46VFVFmfnJoJmutzjE3pCvJJ4bE-1ou21nYZqqEDA/exec";
-
-        document.getElementById("fetchData").addEventListener("click", function() {
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("result").innerHTML = `
-                        <h2>Data from API:</h2>
-                        <pre>${JSON.stringify(data, null, 2)}</pre>`;
-                })
-                .catch(error => {
-                    document.getElementById("result").innerHTML = `<p>Error fetching data: ${error}</p>`;
-                });
-        });
-    </script>
+    <p>If you are not redirected automatically, follow this <a href="https://script.google.com/macros/s/AKfycbxmvi2uzx832qwRZyKpLW_4nQ60-46VFVFmfnJoJmutzjE3pCvJJ4bE-1ou21nYZqqEDA/exec">link to Google Apps Script</a>.</p>
 </body>
 </html>
