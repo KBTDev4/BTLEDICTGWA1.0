@@ -1,27 +1,73 @@
-function doPost(e) {
-  // Parse the incoming data
-  const data = JSON.parse(e.postData.contents);
-  
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const lastRow = sheet.getLastRow() + 1;
+function calculateGWA() {
+    let totalWeighted = 0;
+    let totalUnits = 0;
+    let name = document.getElementById('name').value;
 
-  sheet.appendRow([
-    data.name,
-    data.grades[0], data.units[0],
-    data.grades[1], data.units[1],
-    data.grades[2], data.units[2],
-    data.grades[3], data.units[3],
-    data.grades[4], data.units[4],
-    data.grades[5], data.units[5],
-    data.grades[6], data.units[6],
-    data.grades[7], data.units[7],
-    data.grades[8], data.units[8],
-    data.grades[9], data.units[9],
-    data.gwa, data.status
-  ]);
+    if (!name.trim()) {
+        alert("Please enter your name.");
+        return;
+    }
 
-  // Return a success response
-  return ContentService.createTextOutput(
-    JSON.stringify({ result: "success" })
-  ).setMimeType(ContentService.MimeType.JSON);
+    let grades = [];
+    let units = [];
+
+    for (let i = 1; i <= 10; i++) {
+        let grade = parseFloat(document.getElementById('grade' + i).value);
+        let unit = parseFloat(document.getElementById('units' + i).value);
+
+        if (!isNaN(grade) && !isNaN(unit)) {
+            grades.push(grade);
+            units.push(unit);
+            totalWeighted += grade * unit;
+            totalUnits += unit;
+        }
+    }
+
+    if (totalUnits > 0) {
+        let gwa = totalWeighted / totalUnits;
+        gwa = gwa.toFixed(4);  // Round to 4 decimal places
+
+        document.getElementById('name-result').innerText = name;
+        document.getElementById('result').innerText = "GWA: " + gwa;
+
+        let statusText = "";
+        if (gwa > 1.45 && gwa <= 1.75) {
+            statusText = "Dean's Lister";
+            document.getElementById('status').className = "status shine deans-lister";
+        } else if (gwa >= 1.25 && gwa <= 1.45) {
+            statusText = "President Lister";
+            document.getElementById('status').className = "status shine president-lister";
+        } else {
+            statusText = "No Honor";
+            document.getElementById('status').className = "status shine no-honor";
+        }
+
+        document.getElementById('status').innerText = statusText;
+
+        // Send the data to Google Apps Script Web App
+        fetch('https://script.google.com/macros/s/AKfycbymvu1t2ri3RTL92EM_Oe-bisRpGVOHkFHuzHu2SFqx1bcosFIrYIqcJS84nWAAOfIgHw/exec', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                grades: grades,
+                units: units,
+                gwa: gwa,
+                status: statusText
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Data saved successfully:', data);
+        })
+        .catch(error => {
+            console.error('Error saving data:', error);
+        });
+
+    } else {
+        document.getElementById('result').innerText = "Please enter valid grades and units.";
+        document.getElementById('status').innerText = "";
+    }
 }
