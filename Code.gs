@@ -45,7 +45,7 @@ function calculateGWA() {
         document.getElementById('status').innerText = statusText;
 
         // Replace the URL with the one you provided
-        fetch('https://script.google.com/macros/s/AKfycbzuiHsAVgUfqCv9d1J54Qiws3bkNXx_gbLyDOTMI8PmXTEXkruqC3VhL8Tl0cH14thDUA/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbxSpFqGXzv210tSePA7KaQbfEwcLH3_tQktqdUx2bcCARw9b9KCOQ0BTHGwyZwSvaFWBg/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
