@@ -1,8 +1,7 @@
-function doGet() {
-  return HtmlService.createHtmlOutputFromFile('index');
-}
-
-function saveGradesToSheet(data) {
+function doPost(e) {
+  // Parse the incoming data
+  const data = JSON.parse(e.postData.contents);
+  
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const lastRow = sheet.getLastRow() + 1;
 
@@ -20,4 +19,9 @@ function saveGradesToSheet(data) {
     data.grades[9], data.units[9],
     data.gwa, data.status
   ]);
+
+  // Return a success response
+  return ContentService.createTextOutput(
+    JSON.stringify({ result: "success" })
+  ).setMimeType(ContentService.MimeType.JSON);
 }
