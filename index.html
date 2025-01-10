@@ -58,9 +58,6 @@
             color: #333;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        .result-box div {
-            font-weight: bold;
-        }
         .status {
             font-size: 24px;
             font-weight: bold;
@@ -200,31 +197,22 @@
             document.getElementById('status').innerText = statusText;
 
             // Save the grades and GWA to the Google Sheet
-            fetch('https://script.google.com/macros/s/AKfycbwznzPcopti0ERojtfMPs2i7KcUdgXo7autpS30kdrq-UfD5lh8AYU9DzWsK2wGFz3gOQ/exec', {
+            fetch('YOUR_APPS_SCRIPT_WEB_APP_URL', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify({
                     name: name,
                     grades: grades,
                     units: units,
                     gwa: gwa,
                     status: statusText
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === "success") {
-                    console.log('Data saved successfully:', data.message);
-                } else {
-                    console.error('Error:', data.message);
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-
+            .then(response => response.json())
+            .then(data => console.log('Data saved successfully'))
+            .catch(error => console.error('Error:', error));
         } else {
             document.getElementById('result').innerText = "Please enter valid grades and units.";
             document.getElementById('status').innerText = "";
