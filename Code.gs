@@ -28,7 +28,7 @@ function calculateGWA() {
         gwa = gwa.toFixed(4);  // Round to 4 decimal places
 
         document.getElementById('name-result').innerText = name;
-        document.getElementById('result').innerText = gwa;
+        document.getElementById('result').innerText = gwa;  // Removed "GWA:" from here
 
         let statusText = "";
         if (gwa > 1.45 && gwa <= 1.75) {
@@ -44,7 +44,7 @@ function calculateGWA() {
 
         document.getElementById('status').innerText = statusText;
 
-        // Send the data to Google Sheets via Apps Script Web App
+        // Replace the URL with the one you provided
         fetch('https://script.google.com/macros/s/AKfycbzuiHsAVgUfqCv9d1J54Qiws3bkNXx_gbLyDOTMI8PmXTEXkruqC3VhL8Tl0cH14thDUA/exec', {
             method: 'POST',
             headers: {
@@ -60,7 +60,7 @@ function calculateGWA() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Success:', data);
+            console.log('Data saved successfully:', data);
         })
         .catch((error) => {
             console.error('Error:', error);
