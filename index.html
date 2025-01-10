@@ -198,7 +198,9 @@
             }
 
             document.getElementById('status').innerText = statusText;
-             fetch('YOUR_GOOGLE_APPS_SCRIPT_URL_HERE', {
+
+            // Save the grades and GWA to the Google Sheet
+            fetch('https://script.google.com/macros/s/AKfycbzuiHsAVgUfqCv9d1J54Qiws3bkNXx_gbLyDOTMI8PmXTEXkruqC3VhL8Tl0cH14thDUA/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
