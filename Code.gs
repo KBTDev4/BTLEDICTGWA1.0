@@ -45,29 +45,28 @@ function calculateGWA() {
         document.getElementById('status').innerText = statusText;
 
         // Replace the URL with the one you provided
-        fetch('https://script.google.com/macros/s/AKfycbxSpFqGXzv210tSePA7KaQbfEwcLH3_tQktqdUx2bcCARw9b9KCOQ0BTHGwyZwSvaFWBg/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: name,
-                grades: grades,
-                units: units,
-                gwa: gwa,
-                status: statusText
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data saved successfully:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-
+       fetch('https://script.google.com/macros/s/AKfycbxSpFqGXzv210tSePA7KaQbfEwcLH3_tQktqdUx2bcCARw9b9KCOQ0BTHGwyZwSvaFWBg/exec', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        name: name,
+        grades: grades,
+        units: units,
+        gwa: gwa,
+        status: statusText
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Response from Google Apps Script:', data);
+    if (data.result === "success") {
+        console.log('Data saved successfully:', data.message);
     } else {
-        document.getElementById('result').innerText = "Please enter valid grades and units.";
-        document.getElementById('status').innerText = "";
+        console.error('Error:', data.message);
     }
-}
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
