@@ -45,9 +45,8 @@ function calculateGWA() {
         document.getElementById('status').innerText = statusText;
 
         // Replace the URL with the one you provided
-    fetch('https://script.google.com/macros/s/AKfycbzjJgs-LmUmyHdye6G_g7qgRG7KAXBlLrcQAJEbm-nFZIuN3MK50NsTOXkrIowU0TdKUA/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbzm_cndE99YVQvJjlh7Rq8Q93bp_EUMolF8ty4tv1TxtKsFyHIq59VYRdcL4mDgTOUGuA/exec', {
     method: 'POST',
-    mode: 'no-cors',  // Add this line
     headers: {
         'Content-Type': 'application/json',
     },
@@ -59,8 +58,9 @@ function calculateGWA() {
         status: statusText
     })
 })
-.then(response => {
-    console.log('Request sent, but no CORS response is available');
+.then(response => response.json())
+.then(data => {
+    console.log('Success:', data);
 })
 .catch((error) => {
     console.error('Error:', error);
