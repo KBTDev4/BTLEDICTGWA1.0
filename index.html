@@ -198,15 +198,31 @@
             }
 
             document.getElementById('status').innerText = statusText;
-
-            // Save the grades and GWA to the Google Sheet
-            google.script.run.saveGradesToSheet({
-                name: name,
-                grades: grades,
-                units: units,
-                gwa: gwa,
-                status: statusText
+             fetch('YOUR_GOOGLE_APPS_SCRIPT_URL_HERE', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    grades: grades,
+                    units: units,
+                    gwa: gwa,
+                    status: statusText
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === "success") {
+                    console.log('Data saved successfully:', data.message);
+                } else {
+                    console.error('Error:', data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
             });
+
         } else {
             document.getElementById('result').innerText = "Please enter valid grades and units.";
             document.getElementById('status').innerText = "";
