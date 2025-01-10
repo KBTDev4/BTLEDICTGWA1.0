@@ -28,7 +28,7 @@ function calculateGWA() {
         gwa = gwa.toFixed(4);  // Round to 4 decimal places
 
         document.getElementById('name-result').innerText = name;
-        document.getElementById('result').innerText = "GWA: " + gwa;
+        document.getElementById('result').innerText = gwa;
 
         let statusText = "";
         if (gwa > 1.45 && gwa <= 1.75) {
@@ -44,11 +44,11 @@ function calculateGWA() {
 
         document.getElementById('status').innerText = statusText;
 
-        // Send the data to Google Apps Script Web App
-        fetch('https://script.google.com/macros/s/AKfycbymvu1t2ri3RTL92EM_Oe-bisRpGVOHkFHuzHu2SFqx1bcosFIrYIqcJS84nWAAOfIgHw/exec', {
+        // Send the data to Google Sheets via Apps Script Web App
+        fetch('https://script.google.com/macros/s/AKfycbzuiHsAVgUfqCv9d1J54Qiws3bkNXx_gbLyDOTMI8PmXTEXkruqC3VhL8Tl0cH14thDUA/exec', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 name: name,
@@ -60,10 +60,10 @@ function calculateGWA() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Data saved successfully:', data);
+            console.log('Success:', data);
         })
-        .catch(error => {
-            console.error('Error saving data:', error);
+        .catch((error) => {
+            console.error('Error:', error);
         });
 
     } else {
