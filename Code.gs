@@ -1,9 +1,7 @@
-// Serve the HTML page
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('index');
 }
 
-// Save the grades and GWA to the Google Sheet
 function saveGradesToSheet(data) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   const lastRow = sheet.getLastRow() + 1;
